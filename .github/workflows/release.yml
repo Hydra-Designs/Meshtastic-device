@@ -4,8 +4,10 @@ on:
   # workflow_dispatch:
   #  inputs:
 
-  # Only want to run if version.properties is bumped
+  # Only want to run if version.properties is bumped in master
   push:
+    branches: 
+      - master
     paths:
     - 'version.properties'
 
