@@ -58,6 +58,18 @@ jobs:
 
     - name: Build everything
       run: bin/build-all.sh
+      
+    - name: Create release Tag
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{ github.token }}
+        script: |
+          github.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: "refs/tags/v${{steps.version.outputs.version}}",
+            sha: context.sha
+          })
 
     - name: Create release
       uses: actions/create-release@v1
