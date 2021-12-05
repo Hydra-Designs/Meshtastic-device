@@ -6,24 +6,26 @@ on:
 
 jobs:
   release-build:
-  - name: Checkout
-    uses: actions/checkout@v2 
-  - name: Setup python
-    uses: actions/setup-python@v2
-    with:
-        python-version: 3.x
-  - name: Set Release Version
-    run: echo "VERSION=" + `./bin/buildinfo.py long` >> $GITHUB_ENV
-  - name: Set Release Version
-    run: echo "${{ env.VERSION }}"
-  # - name: Create Release Tag
-  #   uses: actions/github-script@v5
-  #   with:
-  #     github-token: ${{ github.token }}
-  #     script: |
-  #       github.git.createRef({
-  #         owner: context.repo.owner,
-  #         repo: context.repo.repo,
-  #         ref: "refs/tags/v${{env.VERSION}}",
-  #         sha: context.sha
-  #       })
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v2 
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+          python-version: 3.x
+    - name: Set Release Version
+      run: echo "VERSION=" + `./bin/buildinfo.py long` >> $GITHUB_ENV
+    - name: Set Release Version
+      run: echo "${{ env.VERSION }}"
+    # - name: Create Release Tag
+    #   uses: actions/github-script@v5
+    #   with:
+    #     github-token: ${{ github.token }}
+    #     script: |
+    #       github.git.createRef({
+    #         owner: context.repo.owner,
+    #         repo: context.repo.repo,
+    #         ref: "refs/tags/v${{env.VERSION}}",
+    #         sha: context.sha
+    #       })
