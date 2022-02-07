@@ -31,6 +31,10 @@ jobs:
       with:
         python-version: 3.x
 
+    - name: Get release version string
+      run: echo "::set-output name=version::$(./bin/buildinfo.py long)"
+      id: version
+
     - name: Cache python libs
       uses: actions/cache@v1
       id: cache-pip # needed in if test
@@ -114,15 +118,14 @@ jobs:
         echo "Simulator started, launching python test..."
         python3 -c 'from meshtastic.test import testSimulator; testSimulator()'
 
-
     - name: Build everything
       run: bin/build-all.sh
 
     - name: Store binaries as an artifact
       uses: actions/upload-artifact@v2
       with:
-        name: built
-        path: release/archive/firmware-*.zip
+        name: firmware.zip
+        path: release/archive/firmware-${{ steps.version.outputs.version }}.zip
         retention-days: 90
     - name: Store debugging elf files as an artifact
       uses: actions/upload-artifact@v2
@@ -137,4 +140,4 @@ jobs:
         commit: ${{ github.event.pull_request.head.sha }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         artifacts-branch: artifacts
-        artifacts: built.zip
+        artifacts: firmware.zip
