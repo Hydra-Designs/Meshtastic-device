@@ -124,20 +124,27 @@ jobs:
     - name: Store binaries as an artifact
       uses: actions/upload-artifact@v2
       with:
-        name: firmware.zip
+        name: firmware-${{ steps.version.outputs.version }}.zip
         path: release/archive/firmware-${{ steps.version.outputs.version }}.zip
         retention-days: 90
+
     - name: Store debugging elf files as an artifact
       uses: actions/upload-artifact@v2
       with:
         name: debug-elfs
         path: release/archive/elfs-*.zip
         retention-days: 7
+
+    - name: Download firmware.zip
+      uses: actions/download-artifact@master
+      with:
+        name: firmware-${{ steps.version.outputs.version }}.zip
+        path: ./
+
     - name: Pull request artifacts
       if: ${{ github.event_name == 'pull_request' }}
       uses: gavv/pull-request-artifacts@v1.0.0
       with:
         commit: ${{ github.event.pull_request.head.sha }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts-branch: pr-artifacts
-        artifacts: firmware.zip
+        artifacts: ./firmware-${{ steps.version.outputs.version }}.zip
