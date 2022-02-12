@@ -12,3 +12,4 @@ Update Instructions
 [For nRF52 devices click here](https://meshtastic.org/docs/getting-started/flashing-nrf52)
 
 For developer information and specific building instructions, please see the [developer doccumentation](https://meshtastic.org/docs/developers)
+ 
