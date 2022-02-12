@@ -8,6 +8,7 @@ or, to get a shell on the docker image:
 
 To use python cli against it:
   meshtastic --info --host localhost
+  
 
 To stop:
   # run this to get id
