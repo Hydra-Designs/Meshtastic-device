@@ -14,4 +14,3 @@ To stop:
   docker ps
   # tip: you can just use the first few characters of the id in the next command
   docker kill <id>
-
