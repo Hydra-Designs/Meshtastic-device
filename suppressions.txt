@@ -21,6 +21,7 @@ unusedPrivateFunction
 // most likely due to a cppcheck configuration issue (like missing an include)
 syntaxError
 
+
 // try to quiet a few
 //useInitializationList:src/main.cpp
 useInitializationList
